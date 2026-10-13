@@ -1,0 +1,103 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>kv_cache_size_paging_quantization_calculator</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">Calculator for KV cache memory across model presets, context length, batch size and precision, comparing naive max-length reservation against paged allocation and prefix sharing.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:7px 0}
+.r label{width:160px}.r input,.r select{flex:1}.r output{width:84px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.c{background:var(--surface-1);border:0.5px solid var(--border);border-radius:12px;padding:10px 12px}
+.c .k{font-size:12px;color:var(--text-secondary)}.c .v{font-size:20px;font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.b{display:flex;align-items:center;gap:10px;font-size:13px;margin:5px 0}
+.b .n{width:150px;color:var(--text-secondary)}.b .t{flex:1;height:18px;background:var(--surface-1);border:0.5px solid var(--border);border-radius:4px;overflow:hidden}
+.b .f{height:100%;transition:width .15s}.b .v{width:80px;text-align:right;font-variant-numeric:tabular-nums;color:var(--text-primary)}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="m">Model</label><select id="m">
+<option value="524288">Llama-2-7B-like (MHA, 32 heads)</option>
+<option value="131072">Llama-3-8B-like (GQA 8)</option>
+<option value="327680" selected>Llama-3-70B-like (GQA 8)</option>
+<option value="70272">DeepSeek-V3-like (MLA latent)</option>
+</select><output id="mo"></output></div>
+<div class="r"><label for="q">KV precision</label><select id="q">
+<option value="2">FP16 / BF16</option><option value="1">FP8</option><option value="0.5">INT4</option><option value="0.25">2-bit</option>
+</select><output id="qo"></output></div>
+<div class="r"><label for="x">Reserved max context</label><select id="x">
+<option value="8192">8k</option><option value="32768">32k</option><option value="131072" selected>128k</option><option value="1048576">1M</option>
+</select><output id="xo"></output></div>
+<div class="r"><label for="a">Actual avg length</label><input id="a" type="range" min="10" max="20" step="0.25" value="15"><output id="ao"></output></div>
+<div class="r"><label for="p">Shared prefix (tokens)</label><input id="p" type="range" min="0" max="16384" step="512" value="4096"><output id="po"></output></div>
+<div class="r"><label for="n">Batch (sequences)</label><input id="n" type="range" min="1" max="128" value="16"><output id="no"></output></div>
+<div class="g">
+<div class="c"><div class="k">Per token</div><div class="v" id="pt"></div></div>
+<div class="c"><div class="k">Per sequence (actual)</div><div class="v" id="ps"></div></div>
+<div class="c"><div class="k">Saved vs naive</div><div class="v" id="sv"></div></div>
+</div>
+<div class="b"><span class="n">Naive (reserve max)</span><div class="t"><div class="f" id="f1" style="background:var(--border-stronger)"></div></div><span class="v" id="v1"></span></div>
+<div class="b"><span class="n">Paged (16-token pages)</span><div class="t"><div class="f" id="f2" style="background:#7F77DD"></div></div><span class="v" id="v2"></span></div>
+<div class="b"><span class="n">Paged + prefix sharing</span><div class="t"><div class="f" id="f3" style="background:#1D9E75"></div></div><span class="v" id="v3"></span></div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:8px">For scale: one 80 GB GPU. Bars are relative to the naive total.</div>
+</div>
+<script>
+const $=i=>document.getElementById(i);
+const fmtB=b=>b>=1e12?(b/1e12).toFixed(2)+' TB':b>=1e9?(b/1e9).toFixed(1)+' GB':(b/1e6).toFixed(0)+' MB';
+const fmtT=t=>t>=1048576?(t/1048576).toFixed(1)+'M':t>=1024?Math.round(t/1024)+'k':t;
+function u(){
+const base=+$('m').value,prec=+$('q').value,mx=+$('x').value,B=+$('n').value;
+let L=Math.min(Math.round(Math.pow(2,+$('a').value)),mx);
+let P=Math.min(+$('p').value,L);
+const per=base*prec/2;
+$('mo').textContent=(base/1024).toFixed(0)+' KB';$('qo').textContent=prec+' B';$('xo').textContent=fmtT(mx);
+$('ao').textContent=fmtT(L);$('po').textContent=fmtT(P);$('no').textContent=B;
+const pg=t=>Math.ceil(t/16)*16;
+const naive=B*mx*per, paged=B*pg(L)*per, shared=(pg(P)+B*pg(L-P))*per;
+$('pt').textContent=(per/1024).toFixed(per<10240?1:0)+' KB';
+$('ps').textContent=fmtB(L*per);
+$('sv').textContent=(naive/shared).toFixed(1)+'×';
+[[naive,'1'],[paged,'2'],[shared,'3']].forEach(([v,i])=>{$('f'+i).style.width=Math.max(v/naive*100,0.5)+'%';$('v'+i).textContent=fmtB(v);});
+}
+['m','q','x','a','p','n'].forEach(i=>$(i).addEventListener('input',u));u();
+</script></main></body></html>
