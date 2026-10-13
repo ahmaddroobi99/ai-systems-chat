@@ -1,0 +1,96 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>moe_expert_placement_replication_sim</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">Simulation of per-GPU load in an expert-parallel MoE layer with skewed expert popularity, comparing contiguous placement, balanced packing, and replication of hot experts plus packing, including the effect of traffic drift after placement.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:6px 0}
+.r label{width:200px}.r input{flex:1}.r output{width:64px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+button.s{font:inherit;font-size:13px;padding:5px 12px;border-radius:var(--radius);border:0.5px solid var(--border-strong);background:var(--surface-2);color:var(--text-primary);cursor:pointer}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="a">Popularity skew α</label><input id="a" type="range" min="0" max="1.5" step="0.05" value="1"><output id="ao"></output></div>
+<div class="r"><label for="R">Redundant expert slots</label><input id="R" type="range" min="0" max="24" step="8" value="8"><output id="Ro"></output></div>
+<div class="r"><label for="d">Traffic drift since placement</label><input id="d" type="range" min="0" max="1" step="0.05" value="0"><output id="dout"></output></div>
+<div style="margin:6px 0"><button class="s" id="rs">New traffic pattern</button></div>
+<div id="pl"></div>
+<div id="note" style="font-size:13px;color:var(--text-secondary);margin-top:4px"></div>
+</div>
+<script>
+const $=i=>document.getElementById(i);const E=32,G=8,S0=4;let seed=21,P1=[],P2=[];
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function perm(R){const p=[...Array(E).keys()];for(let i=E-1;i>0;i--){const j=Math.floor(R()*(i+1));[p[i],p[j]]=[p[j],p[i]]}return p}
+function init(){const R=rng(seed);P1=perm(R);P2=perm(R)}
+function loads(P,a){const L=new Array(E).fill(0);P.forEach((e,r)=>L[e]=Math.pow(r+1,-a));const s=L.reduce((x,y)=>x+y,0);return L.map(v=>v*E/s)}
+function u(){
+const a=+$('a').value,R=+$('R').value,d=+$('d').value;
+$('ao').textContent=a.toFixed(2);$('Ro').textContent=R;$('dout').textContent=(d*100).toFixed(0)+'%';
+const L=loads(P1,a),L2=loads(P2,a),Ln=L.map((v,i)=>(1-d)*v+d*L2[i]);
+const A=new Array(G).fill(0);for(let e=0;e<E;e++)A[Math.floor(e/S0)]+=Ln[e];
+const order=[...Array(E).keys()].sort((x,y)=>L[y]-L[x]);
+const pl=new Array(G).fill(0),cap=new Array(G).fill(S0),B=new Array(G).fill(0);
+order.forEach(e=>{let g=-1;for(let k=0;k<G;k++)if(cap[k]>0&&(g<0||pl[k]<pl[g]))g=k;pl[g]+=L[e];cap[g]--;B[g]+=Ln[e]});
+const rep=new Array(E).fill(1);for(let i=0;i<R;i++){let b=0;for(let e=1;e<E;e++)if(L[e]/rep[e]>L[b]/rep[b])b=e;rep[b]++}
+const items=[];for(let e=0;e<E;e++)for(let k=0;k<rep[e];k++)items.push(e);items.sort((x,y)=>L[y]/rep[y]-L[x]/rep[x]);
+const slots=S0+R/G,pc=new Array(G).fill(0),cc=new Array(G).fill(slots),host=[...Array(G)].map(()=>new Set()),C=new Array(G).fill(0);
+items.forEach(e=>{let g=-1;for(let k=0;k<G;k++)if(cc[k]>0&&!host[k].has(e)&&(g<0||pc[k]<pc[g]))g=k;if(g<0)for(let k=0;k<G;k++)if(cc[k]>0&&(g<0||pc[k]<pc[g]))g=k;pc[g]+=L[e]/rep[e];cc[g]--;host[g].add(e);C[g]+=Ln[e]/rep[e]});
+const mean=E/G,S=[['Contiguous',A],['Balanced packing',B],['Replicas + packing',C]].map(([n,v])=>[n,v.map(x=>x/mean)]);
+const yM=Math.max(2,...S.flatMap(x=>x[1]))*1.08,Y=v=>260-v/yM*190;
+let s='<svg width="100%" viewBox="0 0 680 300" role="img"><title>Per-GPU load under three placement strategies</title>';
+S.forEach(([n,v],p)=>{const x0=50+p*215;const mx=Math.max(...v);
+s+='<text class="th" x="'+(x0+85)+'" y="26" text-anchor="middle" dominant-baseline="central">'+n+'</text>';
+s+='<text class="ts" x="'+(x0+85)+'" y="46" text-anchor="middle" dominant-baseline="central">layer time '+mx.toFixed(2)+'× ideal</text>';
+v.forEach((x,g)=>{const bx=x0+g*22,by=Y(x);s+='<rect x="'+bx+'" y="'+by.toFixed(1)+'" width="16" height="'+(260-by).toFixed(1)+'" rx="2" fill="'+(x>1.25?'#D85A30':'#7F77DD')+'"/>'});
+s+='<line x1="'+(x0-4)+'" y1="'+Y(1)+'" x2="'+(x0+176)+'" y2="'+Y(1)+'" stroke="var(--text-primary)" stroke-width="1" stroke-dasharray="4 3"/>';
+s+='<line x1="'+(x0-4)+'" y1="260" x2="'+(x0+176)+'" y2="260" stroke="var(--border-stronger)" stroke-width="0.5"/>'});
+s+='<text class="ts" x="44" y="'+Y(1)+'" text-anchor="end" dominant-baseline="central">1</text><text class="ts" x="44" y="260" text-anchor="end" dominant-baseline="central">0</text><text class="ts" x="44" y="'+Y(yM)+'" text-anchor="end" dominant-baseline="central">'+yM.toFixed(1)+'</text>';
+s+='<rect x="140" y="278" width="12" height="12" rx="2" fill="#7F77DD"/><text class="ts" x="160" y="284" dominant-baseline="central">GPU load (1 = perfect balance)</text>';
+s+='<rect x="380" y="278" width="12" height="12" rx="2" fill="#D85A30"/><text class="ts" x="400" y="284" dominant-baseline="central">Over 1.25× mean</text></svg>';
+$('pl').innerHTML=s;
+const hot=P1[0];$('note').textContent='Hottest expert (planned): '+(100*L[hot]/E).toFixed(1)+'% of routed tokens, '+rep[hot]+' replica'+(rep[hot]>1?'s':'')+'. Placement uses the old statistics; drift evaluates it on new traffic.';
+}
+$('rs').onclick=()=>{seed=Math.floor(Math.random()*1e9);init();u()};
+['a','R','d'].forEach(i=>$(i).addEventListener('input',u));init();u();
+</script></main></body></html>
