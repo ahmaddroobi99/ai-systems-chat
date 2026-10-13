@@ -1,0 +1,90 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>mean_var_cvar_plan_choice</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">Interactive comparison of two plans' cost distributions showing how the mean, value-at-risk and conditional value-at-risk at a chosen confidence level can select different plans.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:6px 0}
+.r label{width:120px}.r input{flex:1}.r output{width:60px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+table.m{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;font-variant-numeric:tabular-nums}
+table.m th,table.m td{padding:6px 8px;border-bottom:0.5px solid var(--border);text-align:right;color:var(--text-primary);font-weight:400}
+table.m th{color:var(--text-secondary);font-weight:500}
+table.m td:first-child,table.m th:first-child{text-align:left}
+.w{color:var(--text-accent);font-weight:500}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="a">Confidence α</label><input id="a" type="range" min="0.5" max="0.99" step="0.01" value="0.95"><output id="ao"></output></div>
+<div id="pl"></div>
+<div style="font-size:12px;color:var(--text-secondary)">Density on a square-root scale so the rare tail is visible. Dashed: VaR_α. Solid: CVaR_α.</div>
+<table class="m"><thead><tr><th>Criterion</th><th>Plan A</th><th>Plan B</th><th>Picks</th></tr></thead><tbody id="tb"></tbody></table>
+</div>
+<script>
+const $=i=>document.getElementById(i);
+const N=(x,m,s)=>Math.exp(-.5*((x-m)/s)**2)/(s*Math.sqrt(2*Math.PI));
+const dx=0.005,xs=[];for(let x=0;x<=13;x+=dx)xs.push(x);
+const pA=xs.map(x=>.97*N(x,2,.5)+.03*N(x,9,1)),pB=xs.map(x=>N(x,3,.6));
+function stats(p,a){let c=0,v=null,mean=0;for(let i=0;i<xs.length;i++){mean+=xs[i]*p[i]*dx}
+for(let i=0;i<xs.length;i++){c+=p[i]*dx;if(v===null&&c>=a){v=i;break}}
+let t=0,m=0;for(let i=v;i<xs.length;i++){t+=p[i]*dx;m+=xs[i]*p[i]*dx}
+return{mean,var:xs[v],cvar:m/t}}
+const X=x=>50+x*600/12,Y=p=>170-Math.sqrt(p)*160/0.9;
+function path(p){let s='';for(let i=0;i<xs.length;i+=4){if(xs[i]>12)break;s+=(s?'L':'M')+X(xs[i]).toFixed(1)+' '+Y(p[i]).toFixed(1)}return s}
+const PA=path(pA),PB=path(pB);
+function u(){
+const a=+$('a').value;$('ao').textContent=a.toFixed(2);
+const A=stats(pA,a),B=stats(pB,a);
+let s='<svg width="100%" viewBox="0 0 680 200" role="img"><title>Cost distributions of plan A and plan B</title>';
+s+='<line x1="50" y1="170" x2="650" y2="170" stroke="var(--border-stronger)" stroke-width="0.5"/>';
+for(let k=0;k<=12;k+=2)s+='<text class="ts" x="'+X(k)+'" y="186" text-anchor="middle" dominant-baseline="central">'+k+'</text>';
+s+='<path d="'+PB+'" fill="none" stroke="#1D9E75" stroke-width="2"/><path d="'+PA+'" fill="none" stroke="#7F77DD" stroke-width="2"/>';
+[[A,'#7F77DD'],[B,'#1D9E75']].forEach(([S,c])=>{s+='<line x1="'+X(S.var)+'" y1="20" x2="'+X(S.var)+'" y2="170" stroke="'+c+'" stroke-width="1" stroke-dasharray="4 3"/>';
+s+='<line x1="'+X(Math.min(S.cvar,12))+'" y1="20" x2="'+X(Math.min(S.cvar,12))+'" y2="170" stroke="'+c+'" stroke-width="1.5"/>'});
+s+='<text class="ts" x="'+X(2)+'" y="12" text-anchor="middle" dominant-baseline="central">Plan A</text><text class="ts" x="'+X(9)+'" y="140" text-anchor="middle" dominant-baseline="central">A: rare bad tail</text><text class="ts" x="'+X(3.6)+'" y="30" text-anchor="start" dominant-baseline="central">Plan B</text></svg>';
+$('pl').innerHTML=s;
+const row=(n,a,b)=>'<tr><td>'+n+'</td><td'+(a<=b?' class="w"':'')+'>'+a.toFixed(2)+'</td><td'+(b<a?' class="w"':'')+'>'+b.toFixed(2)+'</td><td>'+(a<=b?'A':'B')+'</td></tr>';
+$('tb').innerHTML=row('Mean cost',A.mean,B.mean)+row('VaR_α (quantile)',A.var,B.var)+row('CVaR_α (tail mean)',A.cvar,B.cvar);
+}
+$('a').addEventListener('input',u);u();
+</script></main></body></html>

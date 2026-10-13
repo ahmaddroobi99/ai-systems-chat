@@ -1,0 +1,103 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>reachability_cbf_braking_phase_plane</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">Phase-plane simulation of a robot approaching a wall, showing the worst-case backward reachable unsafe set and how a control barrier function safety filter keeps the trajectory outside it under disturbance and position uncertainty.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:6px 0}
+.r label{width:170px}.r input{flex:1}.r output{width:70px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 4px}
+.c{background:var(--surface-1);border:0.5px solid var(--border);border-radius:12px;padding:10px 12px}
+.c .k{font-size:12px;color:var(--text-secondary)}.c .v{font-size:18px;font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.lg{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-secondary);margin:4px 0}
+.sw{display:inline-block;width:12px;height:3px;margin-right:5px;vertical-align:3px}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="a">Max braking a (m/s²)</label><input id="a" type="range" min="2" max="8" step="0.5" value="4"><output id="ao"></output></div>
+<div class="r"><label for="d">Disturbance bound d (m/s²)</label><input id="d" type="range" min="0" max="1.5" step="0.1" value="0.5"><output id="do"></output></div>
+<div class="r"><label for="e">Position uncertainty δ (m)</label><input id="e" type="range" min="0" max="4" step="0.25" value="1"><output id="eo"></output></div>
+<div class="r"><label for="al">CBF rate α</label><input id="al" type="range" min="0.2" max="5" step="0.1" value="1"><output id="alo"></output></div>
+<div class="lg"><span><span class="sw" style="background:#D85A30"></span>Nominal (no filter)</span><span><span class="sw" style="background:#7F77DD"></span>CBF-filtered</span><span><span class="sw" style="background:#E24B4A;opacity:.35;height:10px;vertical-align:-1px"></span>Unsafe set (worst case)</span></div>
+<div id="pl"></div>
+<div class="g">
+<div class="c"><div class="k">Nominal</div><div class="v" id="r1"></div></div>
+<div class="c"><div class="k">Filtered: stop gap</div><div class="v" id="r2"></div></div>
+<div class="c"><div class="k">Filter active</div><div class="v" id="r3"></div></div>
+</div>
+</div>
+<script>
+const $=i=>document.getElementById(i);const D=20,VM=12;
+const X=p=>60+p*560/D,Y=v=>190-v*160/VM;
+function sim(f,a,d,de,al){let p=0,v=2,path=[[p,v]],act=0,n=0,hit=false;const ae=a-d,dt=0.005;
+for(let k=0;k<20000;k++){let u=2;
+if(f){const h=D-de-p-v*v/(2*ae);if(v>1e-3){const us=(ae/v)*(al*h-v)-d;if(us<u){u=us;act++}}}
+u=Math.max(-a,Math.min(a,u));v+=(u+d)*dt;if(v<0)v=0;p+=v*dt;n++;
+if(k%20==0)path.push([p,v]);if(p>=D){hit=true;p=D;path.push([p,v]);break}if(v===0&&k>10)break}
+path.push([p,v]);return{path,p,v,hit,act:act/n}}
+function u(){
+const a=+$('a').value,d=+$('d').value,de=+$('e').value,al=+$('al').value;
+$('ao').textContent=a.toFixed(1);$('do').textContent=d.toFixed(1);$('eo').textContent=de.toFixed(2);$('alo').textContent=al.toFixed(1);
+const ae=a-d;let poly='M'+X(D)+' '+Y(0);
+for(let v=0;v<=VM;v+=0.1){const p=Math.max(0,D-de-v*v/(2*ae));poly+='L'+X(p).toFixed(1)+' '+Y(v).toFixed(1)}
+poly+='L'+X(D)+' '+Y(VM)+'Z';
+const N=sim(false,a,d,de,al),F=sim(true,a,d,de,al);
+const pth=P=>P.map((q,i)=>(i?'L':'M')+X(q[0]).toFixed(1)+' '+Y(Math.min(q[1],VM)).toFixed(1)).join('');
+let s='<svg width="100%" viewBox="0 0 680 230" role="img"><title>Phase plane: position vs velocity</title>';
+s+='<path d="'+poly+'" fill="#E24B4A" opacity="0.18" stroke="#E24B4A" stroke-width="0.75"/>';
+s+='<line x1="60" y1="190" x2="620" y2="190" stroke="var(--border-stronger)" stroke-width="0.5"/><line x1="60" y1="30" x2="60" y2="190" stroke="var(--border-stronger)" stroke-width="0.5"/>';
+s+='<line x1="'+X(D)+'" y1="24" x2="'+X(D)+'" y2="190" stroke="var(--text-primary)" stroke-width="2.5"/><text class="ts" x="'+(X(D)-6)+'" y="18" text-anchor="end" dominant-baseline="central">wall</text>';
+for(let k=0;k<=D;k+=5)s+='<text class="ts" x="'+X(k)+'" y="206" text-anchor="middle" dominant-baseline="central">'+k+' m</text>';
+for(let k=0;k<=VM;k+=4)s+='<text class="ts" x="52" y="'+Y(k)+'" text-anchor="end" dominant-baseline="central">'+k+'</text>';
+s+='<text class="ts" x="66" y="34" dominant-baseline="central">velocity (m/s)</text>';
+s+='<path d="'+pth(N.path)+'" fill="none" stroke="#D85A30" stroke-width="2" stroke-dasharray="5 3"/>';
+s+='<path d="'+pth(F.path)+'" fill="none" stroke="#7F77DD" stroke-width="2.5"/>';
+s+='<circle cx="'+X(0)+'" cy="'+Y(2)+'" r="4" fill="var(--text-primary)"/></svg>';
+$('pl').innerHTML=s;
+$('r1').textContent=N.hit?'hits at '+N.v.toFixed(1)+' m/s':'stops';
+$('r2').textContent=F.hit?'collision':(D-F.p).toFixed(2)+' m';
+$('r3').textContent=(F.act*100).toFixed(0)+'% of steps';
+}
+['a','d','e','al'].forEach(i=>$(i).addEventListener('input',u));u();
+</script></main></body></html>
