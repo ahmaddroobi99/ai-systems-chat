@@ -1,0 +1,86 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>scene_graph_semantic_uncertainty_node</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><svg width="100%" viewBox="0 0 680 380" role="img"><title>3D scene graph with an uncertain object node</title><desc>A layered scene graph with a building, two rooms, three places, four objects and a geometry layer. Object o3 is expanded into a card showing its class distribution (mug 0.62, bowl 0.25, cup 0.13), Dirichlet evidence, open-vocabulary embedding, pose covariance, existence probability, probabilistic relations and last-seen time.</desc>
+<text class="ts" x="40" y="50" dominant-baseline="central">Building</text>
+<text class="ts" x="40" y="120" dominant-baseline="central">Rooms</text>
+<text class="ts" x="40" y="190" dominant-baseline="central">Places</text>
+<text class="ts" x="40" y="260" dominant-baseline="central">Objects</text>
+<text class="ts" x="40" y="330" dominant-baseline="central">Geometry</text>
+<g stroke="var(--border-stronger)" stroke-width="0.75">
+<line x1="225" y1="60" x2="180" y2="108"/><line x1="245" y1="60" x2="290" y2="108"/>
+<line x1="163" y1="133" x2="145" y2="182"/><line x1="177" y1="133" x2="205" y2="182"/><line x1="300" y1="134" x2="292" y2="181"/>
+<line x1="140" y1="199" x2="134" y2="252"/><line x1="213" y1="199" x2="196" y2="252"/><line x1="216" y1="198" x2="246" y2="252"/><line x1="292" y1="199" x2="308" y2="252"/>
+</g>
+<line x1="149" y1="190" x2="201" y2="190" stroke="var(--border-stronger)" stroke-width="0.75" stroke-dasharray="3 3"/>
+<circle class="c-gray" cx="235" cy="50" r="14" stroke-width="0.5"/>
+<g class="c-teal"><circle cx="170" cy="120" r="14" stroke-width="0.5"/><text class="ts" x="170" y="120" text-anchor="middle" dominant-baseline="central">R1</text></g>
+<g class="c-teal"><circle cx="300" cy="120" r="14" stroke-width="0.5"/><text class="ts" x="300" y="120" text-anchor="middle" dominant-baseline="central">R2</text></g>
+<circle class="c-gray" cx="140" cy="190" r="9" stroke-width="0.5"/>
+<circle class="c-gray" cx="210" cy="190" r="9" stroke-width="0.5"/>
+<circle class="c-gray" cx="290" cy="190" r="9" stroke-width="0.5"/>
+<rect class="c-gray" x="122" y="252" width="16" height="16" rx="3" stroke-width="0.5"/>
+<rect class="c-gray" x="182" y="252" width="16" height="16" rx="3" stroke-width="0.5"/>
+<rect class="c-purple" x="242" y="252" width="16" height="16" rx="3" stroke-width="1"/>
+<rect class="c-gray" x="302" y="252" width="16" height="16" rx="3" stroke-width="0.5"/>
+<text class="ts" x="250" y="286" text-anchor="middle" dominant-baseline="central">o3</text>
+<g class="c-gray"><rect x="110" y="316" width="230" height="28" rx="6" stroke-width="0.5"/><text class="ts" x="225" y="330" text-anchor="middle" dominant-baseline="central">Mesh / TSDF</text></g>
+<line x1="258" y1="256" x2="368" y2="200" stroke="var(--border-stronger)" stroke-width="0.75" stroke-dasharray="4 3"/>
+<rect x="370" y="40" width="270" height="318" rx="12" fill="none" stroke="#7F77DD" stroke-width="0.75"/>
+<text class="th" x="386" y="58" dominant-baseline="central">Object node o3</text>
+<text class="ts" x="386" y="80" dominant-baseline="central">Class (Dirichlet mean)</text>
+<text class="ts" x="386" y="100" dominant-baseline="central">mug</text><rect x="430" y="94" width="160" height="12" rx="3" fill="var(--bg2)" stroke="var(--border)" stroke-width="0.5"/><rect x="430" y="94" width="99" height="12" rx="3" fill="#7F77DD"/><text class="ts" x="628" y="100" text-anchor="end" dominant-baseline="central">0.62</text>
+<text class="ts" x="386" y="120" dominant-baseline="central">bowl</text><rect x="430" y="114" width="160" height="12" rx="3" fill="var(--bg2)" stroke="var(--border)" stroke-width="0.5"/><rect x="430" y="114" width="40" height="12" rx="3" fill="#7F77DD" opacity="0.7"/><text class="ts" x="628" y="120" text-anchor="end" dominant-baseline="central">0.25</text>
+<text class="ts" x="386" y="140" dominant-baseline="central">cup</text><rect x="430" y="134" width="160" height="12" rx="3" fill="var(--bg2)" stroke="var(--border)" stroke-width="0.5"/><rect x="430" y="134" width="21" height="12" rx="3" fill="#7F77DD" opacity="0.5"/><text class="ts" x="628" y="140" text-anchor="end" dominant-baseline="central">0.13</text>
+<text class="ts" x="386" y="166" dominant-baseline="central">Evidence Σα = 14 (views fused)</text>
+<text class="ts" x="386" y="190" dominant-baseline="central">Open-vocab embedding: mean + spread</text>
+<text class="ts" x="386" y="214" dominant-baseline="central">Pose: μ, Σ in tangent space</text>
+<text class="ts" x="386" y="238" dominant-baseline="central">Existence r = 0.93</text>
+<text class="th" x="386" y="266" dominant-baseline="central">Relations</text>
+<text class="ts" x="386" y="288" dominant-baseline="central">on(table)  p = 0.90</text>
+<text class="ts" x="386" y="310" dominant-baseline="central">in(R2: kitchen)  p = 0.80</text>
+<text class="ts" x="386" y="336" dominant-baseline="central">Last seen 4 min ago (mobile class)</text>
+</svg></main></body></html>
