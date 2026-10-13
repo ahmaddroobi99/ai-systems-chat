@@ -1,0 +1,73 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>transformer_moe_block_internals</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><svg width="100%" viewBox="0 0 680 460" role="img"><title>Inside one transformer MoE block</title><desc>The residual stream runs down the left. A pre-norm branch goes through RMSNorm and self-attention with QKV projection, RoPE and grouped KV heads, which appends to and reads the KV cache, then adds back to the stream. A second pre-norm branch goes through a mixture-of-experts feed-forward block with a router, a shared expert and top-k routed experts, then adds back. The block repeats L times before the final norm and language-model head.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="ts" x="110" y="30" text-anchor="middle" dominant-baseline="central">x_l  [T × d]</text>
+<line x1="110" y1="42" x2="110" y2="188" stroke="var(--border-stronger)" stroke-width="2"/>
+<line x1="110" y1="212" x2="110" y2="358" stroke="var(--border-stronger)" stroke-width="2"/>
+<line x1="110" y1="382" x2="110" y2="404" class="arr" stroke-width="2" marker-end="url(#arrow)"/>
+<text class="ts" x="110" y="420" text-anchor="middle" dominant-baseline="central">x_(l+1)</text>
+<circle cx="110" cy="200" r="12" fill="none" stroke="var(--border-stronger)" stroke-width="1"/>
+<text class="th" x="110" y="200" text-anchor="middle" dominant-baseline="central">+</text>
+<circle cx="110" cy="370" r="12" fill="none" stroke="var(--border-stronger)" stroke-width="1"/>
+<text class="th" x="110" y="370" text-anchor="middle" dominant-baseline="central">+</text>
+<line x1="110" y1="78" x2="198" y2="78" class="arr" marker-end="url(#arrow)"/>
+<g class="c-gray"><rect x="200" y="60" width="300" height="36" rx="6" stroke-width="0.5"/><text class="th" x="350" y="78" text-anchor="middle" dominant-baseline="central">RMSNorm</text></g>
+<line x1="350" y1="96" x2="350" y2="114" class="arr" marker-end="url(#arrow)"/>
+<g class="node c-purple" onclick="sendPrompt('Explain grouped-query attention and how it reads the KV cache')"><rect x="200" y="116" width="300" height="56" rx="8" stroke-width="0.5"/><text class="th" x="350" y="134" text-anchor="middle" dominant-baseline="central">Self-attention</text><text class="ts" x="350" y="154" text-anchor="middle" dominant-baseline="central">QKV proj, RoPE, grouped KV</text></g>
+<g class="node c-teal" onclick="sendPrompt('How big is the KV cache and how do paged attention and quantization shrink it?')"><rect x="530" y="116" width="110" height="56" rx="8" stroke-width="0.5"/><text class="th" x="585" y="134" text-anchor="middle" dominant-baseline="central">KV cache</text><text class="ts" x="585" y="154" text-anchor="middle" dominant-baseline="central">append, read</text></g>
+<line x1="502" y1="144" x2="528" y2="144" class="arr" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path d="M350 172 L350 200 L124 200" fill="none" class="arr" marker-end="url(#arrow)"/>
+<line x1="110" y1="248" x2="198" y2="248" class="arr" marker-end="url(#arrow)"/>
+<g class="c-gray"><rect x="200" y="230" width="300" height="36" rx="6" stroke-width="0.5"/><text class="th" x="350" y="248" text-anchor="middle" dominant-baseline="central">RMSNorm</text></g>
+<line x1="350" y1="266" x2="350" y2="284" class="arr" marker-end="url(#arrow)"/>
+<g class="node c-purple" onclick="sendPrompt('How does the MoE top-k router choose experts and balance load?')"><rect x="200" y="286" width="300" height="56" rx="8" stroke-width="0.5"/><text class="th" x="350" y="304" text-anchor="middle" dominant-baseline="central">MoE FFN (SwiGLU experts)</text><text class="ts" x="350" y="324" text-anchor="middle" dominant-baseline="central">Router → shared + top-k experts</text></g>
+<g class="node c-teal" onclick="sendPrompt('Why do MoE models need all expert weights in HBM even though few are active?')"><rect x="530" y="286" width="110" height="56" rx="8" stroke-width="0.5"/><text class="th" x="585" y="304" text-anchor="middle" dominant-baseline="central">Experts</text><text class="ts" x="585" y="324" text-anchor="middle" dominant-baseline="central">all in HBM</text></g>
+<line x1="528" y1="314" x2="502" y2="314" class="arr" marker-end="url(#arrow)"/>
+<path d="M350 342 L350 370 L124 370" fill="none" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="400" y="420" text-anchor="middle" dominant-baseline="central">× L layers → final norm → LM head → logits</text>
+</svg></main></body></html>
