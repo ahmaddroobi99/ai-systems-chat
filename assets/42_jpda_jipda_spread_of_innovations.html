@@ -1,0 +1,101 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>jpda_jipda_spread_of_innovations</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">Interactive JPDA and JIPDA update for two tracks and three measurements, showing association probabilities, updated means, the standard Kalman covariance and the inflated covariance that includes the spread-of-innovations term, plus posterior existence probabilities.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:6px 0}
+.r label{width:200px}.r input{flex:1}.r output{width:64px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+table.b{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;font-variant-numeric:tabular-nums}
+table.b th,table.b td{padding:6px 8px;border-bottom:0.5px solid var(--border);text-align:right;color:var(--text-primary);font-weight:400}
+table.b th{color:var(--text-secondary);font-weight:500}table.b td:first-child,table.b th:first-child{text-align:left}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="sep">Track separation</label><input id="sep" type="range" min="0.4" max="5" step="0.1" value="1.6"><output id="sepo"></output></div>
+<div class="r"><label for="pd">Detection probability P_D</label><input id="pd" type="range" min="0.5" max="0.99" step="0.01" value="0.9"><output id="pdo"></output></div>
+<div class="r"><label for="lc">Clutter density λ (log₁₀)</label><input id="lc" type="range" min="-3" max="0" step="0.1" value="-1.5"><output id="lco"></output></div>
+<div class="r"><label for="r2">Prior existence of T2 (JIPDA)</label><input id="r2" type="range" min="0.05" max="1" step="0.01" value="1"><output id="r2o"></output></div>
+<div id="pl"></div>
+<table class="b"><thead><tr><th></th><th>β∅ (missed)</th><th>β z₁</th><th>β z₂</th><th>β z₃</th><th>r posterior</th><th>tr P / tr P_c</th></tr></thead><tbody id="tb"></tbody></table>
+</div>
+<script>
+const $=i=>document.getElementById(i);
+const p=0.5,Rv=0.1,s=p+Rv,GAM=9.21,PG=0.99,Kg=p/s,Pc=p*Rv/s;
+const X=x=>340+75*x,Y=y=>175-75*y;
+function ell(cx,cy,a,b,c,st){const m=(a+c)/2,d=Math.sqrt(((a-c)/2)**2+b*b),l1=m+d,l2=Math.max(m-d,1e-9),th=0.5*Math.atan2(2*b,a-c)*180/Math.PI;
+return '<ellipse cx="'+X(cx).toFixed(1)+'" cy="'+Y(cy).toFixed(1)+'" rx="'+(75*Math.sqrt(l1)).toFixed(1)+'" ry="'+(75*Math.sqrt(l2)).toFixed(1)+'" transform="rotate('+(-th).toFixed(1)+' '+X(cx).toFixed(1)+' '+Y(cy).toFixed(1)+')" fill="none" '+st+'/>'}
+function u(){
+const sep=+$('sep').value,pd=+$('pd').value,lam=Math.pow(10,+$('lc').value),r2=+$('r2').value;
+$('sepo').textContent=sep.toFixed(1);$('pdo').textContent=pd.toFixed(2);$('lco').textContent=lam.toExponential(1);$('r2o').textContent=r2.toFixed(2);
+const T=[[-sep/2,0],[sep/2,0]],Z=[[-sep/2-0.25,0.35],[0.05,-0.3],[sep/2+0.3,0.25]],rp=[1,r2];
+const N=T.map(t=>Z.map(z=>{const vx=z[0]-t[0],vy=z[1]-t[1],d2=(vx*vx+vy*vy)/s;return d2<GAM?Math.exp(-d2/2)/(2*Math.PI*s):0}));
+const A=[[0,0,0],[0,0,0]],U=[0,0];let tot=0;
+for(let a1=0;a1<4;a1++)for(let a2=0;a2<4;a2++){if(a1>0&&a1===a2)continue;let w=1;
+[a1,a2].forEach((a,t)=>{w*=a===0?(1-rp[t]*pd*PG):rp[t]*pd*N[t][a-1]/lam});
+tot+=w;[a1,a2].forEach((a,t)=>{if(a===0)U[t]+=w;else A[t][a-1]+=w})}
+let svg='<svg width="100%" viewBox="0 0 680 400" role="img"><title>JPDA update geometry</title>',rows='';
+const res=T.map((t,ti)=>{const Aa=A[ti].map(v=>v/tot),Uu=U[ti]/tot,f=rp[ti]*(1-pd*PG)/(1-rp[ti]*pd*PG);
+const r=Aa.reduce((x,y)=>x+y,0)+Uu*f,b0=Uu*f/r,bj=Aa.map(v=>v/r);
+const nu=Z.map(z=>[z[0]-t[0],z[1]-t[1]]);let mx=0,my=0;bj.forEach((b,j)=>{mx+=b*nu[j][0];my+=b*nu[j][1]});
+let cxx=0,cxy=0,cyy=0;bj.forEach((b,j)=>{cxx+=b*nu[j][0]**2;cxy+=b*nu[j][0]*nu[j][1];cyy+=b*nu[j][1]**2});cxx-=mx*mx;cxy-=mx*my;cyy-=my*my;
+const base=b0*p+(1-b0)*Pc,Pxx=base+Kg*Kg*cxx,Pxy=Kg*Kg*cxy,Pyy=base+Kg*Kg*cyy;
+return{t,r,b0,bj,x:[t[0]+Kg*mx,t[1]+Kg*my],P:[Pxx,Pxy,Pyy],ratio:(Pxx+Pyy)/(2*Pc)}});
+res.forEach(R=>{R.bj.forEach((b,j)=>{if(b>0.005)svg+='<line x1="'+X(R.t[0])+'" y1="'+Y(R.t[1])+'" x2="'+X(Z[j][0])+'" y2="'+Y(Z[j][1])+'" stroke="#EF9F27" stroke-width="'+(0.5+7*b).toFixed(2)+'" opacity="0.7" stroke-linecap="round"/>'})});
+res.forEach(R=>{svg+=ell(R.t[0],R.t[1],p,0,p,'stroke="var(--border-stronger)" stroke-width="1" stroke-dasharray="4 3"')});
+res.forEach(R=>{svg+=ell(R.x[0],R.x[1],Pc,0,Pc,'stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="3 2"');svg+=ell(R.x[0],R.x[1],R.P[0],R.P[1],R.P[2],'stroke="#7F77DD" stroke-width="2"')});
+res.forEach((R,i)=>{svg+='<circle cx="'+X(R.t[0])+'" cy="'+Y(R.t[1])+'" r="4" fill="var(--text-secondary)"/><text class="ts" x="'+(X(R.t[0])-8)+'" y="'+(Y(R.t[1])+18)+'" text-anchor="end" dominant-baseline="central">T'+(i+1)+'⁻</text>';
+svg+='<circle cx="'+X(R.x[0])+'" cy="'+Y(R.x[1])+'" r="5" fill="#7F77DD"/>'});
+Z.forEach((z,j)=>{svg+='<rect x="'+(X(z[0])-5)+'" y="'+(Y(z[1])-5)+'" width="10" height="10" fill="#D85A30"/><text class="ts" x="'+(X(z[0])+9)+'" y="'+(Y(z[1])-10)+'" dominant-baseline="central">z'+(j+1)+'</text>'});
+svg+='<circle cx="60" cy="372" r="8" fill="none" stroke="var(--border-stronger)" stroke-dasharray="3 2"/><text class="ts" x="74" y="372" dominant-baseline="central">P⁻ (1σ)</text>';
+svg+='<rect x="140" y="367" width="10" height="10" fill="#D85A30"/><text class="ts" x="158" y="372" dominant-baseline="central">Measurement</text>';
+svg+='<line x1="250" y1="372" x2="276" y2="372" stroke="#EF9F27" stroke-width="4"/><text class="ts" x="284" y="372" dominant-baseline="central">β (width)</text>';
+svg+='<circle cx="370" cy="372" r="8" fill="none" stroke="#1D9E75" stroke-dasharray="3 2"/><text class="ts" x="384" y="372" dominant-baseline="central">P_c only</text>';
+svg+='<circle cx="470" cy="372" r="8" fill="none" stroke="#7F77DD" stroke-width="2"/><text class="ts" x="484" y="372" dominant-baseline="central">JPDA P, with spread</text></svg>';
+$('pl').innerHTML=svg;
+res.forEach((R,i)=>{rows+='<tr><td>T'+(i+1)+'</td><td>'+R.b0.toFixed(2)+'</td>'+R.bj.map(b=>'<td>'+b.toFixed(2)+'</td>').join('')+'<td>'+R.r.toFixed(2)+'</td><td>'+R.ratio.toFixed(2)+'</td></tr>'});
+$('tb').innerHTML=rows;
+}
+['sep','pd','lc','r2'].forEach(i=>$(i).addEventListener('input',u));u();
+</script></main></body></html>

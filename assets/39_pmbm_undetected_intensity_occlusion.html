@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>pmbm_undetected_intensity_occlusion</title><style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--text-accent:#534AB7;
+--text-success:#0F6E56;--text-danger:#A32D2D;--text-warning:#854F0B;--surface-0:#faf9f5;--surface-1:#f5f4ef;
+--surface-2:#ffffff;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--border-stronger:rgba(0,0,0,.42);
+--radius:8px;--font-sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--font-voice:Georgia,serif;
+--p:#1f1e1d;--s:#5f5e5a;--t:#888780;--bg2:#f5f4ef;--b:rgba(0,0,0,.12)}
+html,body{margin:0;background:#ffffff;color:var(--text-primary);font-family:var(--font-sans)}
+main.widget{width:680px;padding:16px;box-sizing:content-box}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+svg text{font-family:var(--font-sans)}
+text.t{font-size:14px;font-weight:400;fill:var(--text-primary)}
+text.ts{font-size:12px;font-weight:400;fill:var(--text-secondary)}
+text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.box{fill:var(--surface-1);stroke:var(--border-strong)}
+.arr:not([stroke]){stroke:var(--text-secondary)}.arr{stroke-width:1.5;fill:none}
+.leader{stroke:var(--t);stroke-width:.5;stroke-dasharray:3 3;fill:none}
+.node{cursor:pointer}.node:hover{opacity:.85}
+input[type=range]{accent-color:#534AB7}
+.c-purple>rect:not([fill]),.c-purple>circle:not([fill]),.c-purple>ellipse:not([fill]),.c-purple>polygon:not([fill]),rect.c-purple:not([fill]),circle.c-purple:not([fill]),ellipse.c-purple:not([fill]){fill:#EEEDFE}
+.c-purple>rect:not([stroke]),.c-purple>circle:not([stroke]),.c-purple>ellipse:not([stroke]),.c-purple>polygon:not([stroke]),rect.c-purple:not([stroke]),circle.c-purple:not([stroke]),ellipse.c-purple:not([stroke]){stroke:#534AB7}
+.c-purple>text.th,.c-purple>text.t{fill:#3C3489}.c-purple>text.ts{fill:#534AB7}
+.c-teal>rect:not([fill]),.c-teal>circle:not([fill]),.c-teal>ellipse:not([fill]),.c-teal>polygon:not([fill]),rect.c-teal:not([fill]),circle.c-teal:not([fill]),ellipse.c-teal:not([fill]){fill:#E1F5EE}
+.c-teal>rect:not([stroke]),.c-teal>circle:not([stroke]),.c-teal>ellipse:not([stroke]),.c-teal>polygon:not([stroke]),rect.c-teal:not([stroke]),circle.c-teal:not([stroke]),ellipse.c-teal:not([stroke]){stroke:#0F6E56}
+.c-teal>text.th,.c-teal>text.t{fill:#085041}.c-teal>text.ts{fill:#0F6E56}
+.c-coral>rect:not([fill]),.c-coral>circle:not([fill]),.c-coral>ellipse:not([fill]),.c-coral>polygon:not([fill]),rect.c-coral:not([fill]),circle.c-coral:not([fill]),ellipse.c-coral:not([fill]){fill:#FAECE7}
+.c-coral>rect:not([stroke]),.c-coral>circle:not([stroke]),.c-coral>ellipse:not([stroke]),.c-coral>polygon:not([stroke]),rect.c-coral:not([stroke]),circle.c-coral:not([stroke]),ellipse.c-coral:not([stroke]){stroke:#993C1D}
+.c-coral>text.th,.c-coral>text.t{fill:#712B13}.c-coral>text.ts{fill:#993C1D}
+.c-pink>rect:not([fill]),.c-pink>circle:not([fill]),.c-pink>ellipse:not([fill]),.c-pink>polygon:not([fill]),rect.c-pink:not([fill]),circle.c-pink:not([fill]),ellipse.c-pink:not([fill]){fill:#FBEAF0}
+.c-pink>rect:not([stroke]),.c-pink>circle:not([stroke]),.c-pink>ellipse:not([stroke]),.c-pink>polygon:not([stroke]),rect.c-pink:not([stroke]),circle.c-pink:not([stroke]),ellipse.c-pink:not([stroke]){stroke:#993556}
+.c-pink>text.th,.c-pink>text.t{fill:#72243E}.c-pink>text.ts{fill:#993556}
+.c-gray>rect:not([fill]),.c-gray>circle:not([fill]),.c-gray>ellipse:not([fill]),.c-gray>polygon:not([fill]),rect.c-gray:not([fill]),circle.c-gray:not([fill]),ellipse.c-gray:not([fill]){fill:#F1EFE8}
+.c-gray>rect:not([stroke]),.c-gray>circle:not([stroke]),.c-gray>ellipse:not([stroke]),.c-gray>polygon:not([stroke]),rect.c-gray:not([stroke]),circle.c-gray:not([stroke]),ellipse.c-gray:not([stroke]){stroke:#5F5E5A}
+.c-gray>text.th,.c-gray>text.t{fill:#444441}.c-gray>text.ts{fill:#5F5E5A}
+.c-blue>rect:not([fill]),.c-blue>circle:not([fill]),.c-blue>ellipse:not([fill]),.c-blue>polygon:not([fill]),rect.c-blue:not([fill]),circle.c-blue:not([fill]),ellipse.c-blue:not([fill]){fill:#E6F1FB}
+.c-blue>rect:not([stroke]),.c-blue>circle:not([stroke]),.c-blue>ellipse:not([stroke]),.c-blue>polygon:not([stroke]),rect.c-blue:not([stroke]),circle.c-blue:not([stroke]),ellipse.c-blue:not([stroke]){stroke:#185FA5}
+.c-blue>text.th,.c-blue>text.t{fill:#0C447C}.c-blue>text.ts{fill:#185FA5}
+.c-green>rect:not([fill]),.c-green>circle:not([fill]),.c-green>ellipse:not([fill]),.c-green>polygon:not([fill]),rect.c-green:not([fill]),circle.c-green:not([fill]),ellipse.c-green:not([fill]){fill:#EAF3DE}
+.c-green>rect:not([stroke]),.c-green>circle:not([stroke]),.c-green>ellipse:not([stroke]),.c-green>polygon:not([stroke]),rect.c-green:not([stroke]),circle.c-green:not([stroke]),ellipse.c-green:not([stroke]){stroke:#3B6D11}
+.c-green>text.th,.c-green>text.t{fill:#27500A}.c-green>text.ts{fill:#3B6D11}
+.c-amber>rect:not([fill]),.c-amber>circle:not([fill]),.c-amber>ellipse:not([fill]),.c-amber>polygon:not([fill]),rect.c-amber:not([fill]),circle.c-amber:not([fill]),ellipse.c-amber:not([fill]){fill:#FAEEDA}
+.c-amber>rect:not([stroke]),.c-amber>circle:not([stroke]),.c-amber>ellipse:not([stroke]),.c-amber>polygon:not([stroke]),rect.c-amber:not([stroke]),circle.c-amber:not([stroke]),ellipse.c-amber:not([stroke]){stroke:#854F0B}
+.c-amber>text.th,.c-amber>text.t{fill:#633806}.c-amber>text.ts{fill:#854F0B}
+.c-red>rect:not([fill]),.c-red>circle:not([fill]),.c-red>ellipse:not([fill]),.c-red>polygon:not([fill]),rect.c-red:not([fill]),circle.c-red:not([fill]),ellipse.c-red:not([fill]){fill:#FCEBEB}
+.c-red>rect:not([stroke]),.c-red>circle:not([stroke]),.c-red>ellipse:not([stroke]),.c-red>polygon:not([stroke]),rect.c-red:not([stroke]),circle.c-red:not([stroke]),ellipse.c-red:not([stroke]){stroke:#A32D2D}
+.c-red>text.th,.c-red>text.t{fill:#791F1F}.c-red>text.ts{fill:#A32D2D}
+</style><script>function sendPrompt(t){console.log('sendPrompt:',t)}function openLink(u){window.open(u,'_blank')}</script></head><body><main class='widget'><h2 class="sr-only">One-dimensional simulation of the PMBM Poisson component for undetected objects: intensity decays where the sensor sees, accumulates in an occlusion shadow and beyond sensor range, and determines the existence probability of a new track created by a detection.</h2>
+<style>
+.r{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-secondary);margin:6px 0}
+.r label{width:200px}.r input{flex:1}.r output{width:64px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:10px 0 4px}
+.c{background:var(--surface-1);border:0.5px solid var(--border);border-radius:12px;padding:10px 12px}
+.c .k{font-size:12px;color:var(--text-secondary)}.c .v{font-size:18px;font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums}
+</style>
+<div style="padding:0.5rem 0">
+<div class="r"><label for="k">Scans with no detections</label><input id="k" type="range" min="0" max="40" value="15"><output id="ko"></output></div>
+<div class="r"><label for="pd">P_D where visible</label><input id="pd" type="range" min="0.5" max="0.99" step="0.01" value="0.9"><output id="pdo"></output></div>
+<div class="r"><label for="oc">Shadow starts at (m)</label><input id="oc" type="range" min="15" max="60" value="35"><output id="oco"></output></div>
+<div class="r"><label for="b">Births per scan (whole road)</label><input id="b" type="range" min="0.01" max="0.2" step="0.01" value="0.05"><output id="bo"></output></div>
+<div class="r"><label for="z">Detection position z (m)</label><input id="z" type="range" min="0" max="100" step="0.5" value="51"><output id="zo"></output></div>
+<div class="r"><label for="kc">Clutter density κ (per m)</label><input id="kc" type="range" min="0.001" max="0.03" step="0.001" value="0.005"><output id="kco"></output></div>
+<div id="pl"></div>
+<div class="g">
+<div class="c"><div class="k">Expected undetected, total</div><div class="v" id="r1"></div></div>
+<div class="c"><div class="k">In the shadow</div><div class="v" id="r2"></div></div>
+<div class="c"><div class="k">Beyond range</div><div class="v" id="r3"></div></div>
+<div class="c"><div class="k">New track from z: r</div><div class="v" id="r4"></div></div>
+</div>
+</div>
+<script>
+const $=i=>document.getElementById(i);const NX=200,DX=0.5,PS=0.99,SW=15,RG=80;
+const xs=Array.from({length:NX},(_,i)=>(i+.5)*DX);
+const KR=6,KER=[];{let s=0;for(let j=-KR;j<=KR;j++){const v=Math.exp(-0.5*(j/2)**2);KER.push(v);s+=v}for(let j=0;j<KER.length;j++)KER[j]/=s}
+function pred(D,b){const o=new Array(NX).fill(0);for(let i=0;i<NX;i++){let a=0;for(let j=-KR;j<=KR;j++){const q=i+j;if(q>=0&&q<NX)a+=KER[j+KR]*D[q]}o[i]=PS*a+b/100}return o}
+function u(){
+const k=+$('k').value,pd=+$('pd').value,oc=+$('oc').value,b=+$('b').value,z=+$('z').value,kc=+$('kc').value;
+$('ko').textContent=k;$('pdo').textContent=pd.toFixed(2);$('oco').textContent=oc;$('bo').textContent=b.toFixed(2);$('zo').textContent=z.toFixed(1);$('kco').textContent=kc.toFixed(3);
+const PD=xs.map(x=>x>=RG?0:(x>=oc&&x<oc+SW?0:(x>=oc-4&&x<oc?0:pd)));
+let D=new Array(NX).fill(0.01);
+for(let s=0;s<k;s++){D=pred(D,b);D=D.map((v,i)=>v*(1-PD[i]))}
+const Dp=pred(D,b);let e=0;for(let i=0;i<NX;i++){const gz=Math.exp(-0.5*(z-xs[i])**2)/Math.sqrt(2*Math.PI);e+=PD[i]*gz*Dp[i]*DX}
+const r=e/(e+kc);
+let tot=0,sh=0,br=0;D.forEach((v,i)=>{tot+=v*DX;if(xs[i]>=oc&&xs[i]<oc+SW)sh+=v*DX;if(xs[i]>=RG)br+=v*DX});
+const ym=Math.max(0.02,Math.max(...D)*1.15),X=x=>50+5.9*x,Y=v=>250-v/ym*190;
+let s='<svg width="100%" viewBox="0 0 680 300" role="img"><title>Undetected intensity along the road</title>';
+s+='<rect x="'+X(oc)+'" y="50" width="'+(5.9*SW)+'" height="200" fill="#888780" opacity="0.15"/><text class="ts" x="'+X(oc+SW/2)+'" y="62" text-anchor="middle" dominant-baseline="central">shadow</text>';
+s+='<rect x="'+X(RG)+'" y="50" width="'+(5.9*20)+'" height="200" fill="#888780" opacity="0.08"/><text class="ts" x="'+X(90)+'" y="62" text-anchor="middle" dominant-baseline="central">out of range</text>';
+s+='<rect class="c-gray" x="'+X(oc-4)+'" y="226" width="'+(5.9*4)+'" height="24" rx="3" stroke-width="0.5"/>';
+let p='M'+X(0)+' 250';xs.forEach((x,i)=>{p+='L'+X(x).toFixed(1)+' '+Y(D[i]).toFixed(1)});p+='L'+X(100)+' 250Z';
+s+='<path d="'+p+'" fill="#1D9E75" opacity="0.25"/>';
+let p2='';xs.forEach((x,i)=>{p2+=(i?'L':'M')+X(x).toFixed(1)+' '+Y(D[i]).toFixed(1)});s+='<path d="'+p2+'" fill="none" stroke="#1D9E75" stroke-width="1.8"/>';
+s+='<line x1="'+X(z)+'" y1="250" x2="'+X(z)+'" y2="76" stroke="#D85A30" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="'+X(z)+'" cy="76" r="4" fill="#D85A30"/>';
+s+='<line x1="50" y1="250" x2="640" y2="250" stroke="var(--border-stronger)" stroke-width="0.75"/><circle cx="50" cy="250" r="5" fill="#7F77DD"/>';
+for(let m=0;m<=100;m+=20)s+='<text class="ts" x="'+X(m)+'" y="266" text-anchor="middle" dominant-baseline="central">'+m+' m</text>';
+s+='<text class="ts" x="44" y="'+Y(ym)+'" text-anchor="end" dominant-baseline="central">'+ym.toPrecision(2)+'</text><text class="ts" x="44" y="250" text-anchor="end" dominant-baseline="central">0</text>';
+s+='<circle cx="80" cy="288" r="5" fill="#7F77DD"/><text class="ts" x="90" y="288" dominant-baseline="central">Sensor</text>';
+s+='<rect x="160" y="282" width="16" height="12" fill="#1D9E75" opacity="0.4"/><text class="ts" x="184" y="288" dominant-baseline="central">Undetected intensity (per m)</text>';
+s+='<rect class="c-gray" x="380" y="282" width="16" height="12" rx="2" stroke-width="0.5"/><text class="ts" x="404" y="288" dominant-baseline="central">Occluder</text>';
+s+='<line x1="490" y1="282" x2="490" y2="294" stroke="#D85A30" stroke-width="1.5"/><circle cx="490" cy="282" r="3" fill="#D85A30"/><text class="ts" x="500" y="288" dominant-baseline="central">Detection z</text></svg>';
+$('pl').innerHTML=s;
+$('r1').textContent=tot.toFixed(2);$('r2').textContent=sh.toFixed(2);$('r3').textContent=br.toFixed(2);$('r4').textContent=r.toFixed(2);
+}
+['k','pd','oc','b','z','kc'].forEach(i=>$(i).addEventListener('input',u));u();
+</script></main></body></html>
